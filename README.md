@@ -7,6 +7,6 @@
 
 Compiled on macOS using Java SE Runtime Environment (build 22.0.1+8-16) 
 
-[Atomic Integer Documentation] (https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html)
+[`Atomic Integer Documentation`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html)
 
 To run the program, use command line: `java Driver <<algorithm> <schedule> [timeslice if RR]`
