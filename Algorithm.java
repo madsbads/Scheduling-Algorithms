@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Interface representing a generic scheduling algorithm.
  *
@@ -15,4 +17,10 @@ public interface Algorithm
      * Selects the next task using the appropriate scheduling algorithm
      */
     public abstract Task_Orig pickNextTask();
+
+    /**
+     * Calculate metrics
+     */  
+    void calculateAndPrintMetrics(List<Task_Orig> completedTasks);
+    
 }

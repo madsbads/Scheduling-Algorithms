@@ -11,90 +11,90 @@
  *  higher relative priority.
  *
  *  int burst - the CPU burst of this this task
+ * 
+ *  Edited to include var and setter/getters for metrics
  */
 
-import java.util.concurrent.atomic.AtomicInteger;
+ import java.util.concurrent.atomic.AtomicInteger;
 
-public class Task_Orig
-{
-    // the representation of each task
-    private String name;
-    private int tid;
-    private int priority;
-    private int burst;
-
-    /**
-     * We use an atomic integer to assign each task a unique task id.
-     */
-    private static AtomicInteger tidAllocator = new AtomicInteger();
-
-    public Task_Orig(String name, int priority, int burst) {
-        this.name = name;
-        this.priority = priority;
-        this.burst = burst;
-        this.tid = tidAllocator.getAndIncrement();
-    }
-
-    /**
-     * Appropriate getters
-     */
-    public String getName() {
-        return name;
-    }
-
-    public int getTid() {
-        return tid;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public int getBurst() {
-        return burst;
-    }
-
-    /**
-     * Appropriate setters
-     */
-    public int setPriority(int priority) {
-        this.priority = priority;
-
-        return priority;
-    }
-    
-    public int setBurst(int burst) {
-        this.burst = burst;
-
-        return burst;
-    }
-
-    /**
-     * We override equals() so we can use a
-     * Task object in Java collection classes.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this)
-            return true;
-
-        if (!(other instanceof Task_Orig))
-            return false;
-
-        /**
-         * Otherwise we are dealing with another Task.
-         * two tasks are equal if they have the same tid.
-         */
-        Task_Orig rhs = (Task_Orig)other;
-        return (this.tid == rhs.tid) ? true : false;
-    }
-
-    @Override
-    public String toString() {
-        return
-            "Name: " + name + "\n" + 
-            "Tid: " + tid + "\n" + 
-            "Priority: " + priority + "\n" + 
-            "Burst: " + burst + "\n";
-    }
-}
+ public class Task_Orig {
+     private String name;
+     private int tid;
+     private int priority;
+     private int burst;
+ 
+     // New fields for metrics calculation
+     private int startTime = -1; // -1 indicates not started yet
+     private int completionTime;
+     private int arrivalTime; // Assumed to be set when the task is created
+ 
+     private static AtomicInteger tidAllocator = new AtomicInteger();
+ 
+     public Task_Orig(String name, int priority, int burst) {
+         this.name = name;
+         this.priority = priority;
+         this.burst = burst;
+         this.tid = tidAllocator.getAndIncrement();
+         this.arrivalTime = 0; // Setting arrival time as 0 for all tasks for simplicity
+     }
+ 
+     // Getters and setters for the new fields
+     public int getStartTime() {
+         return startTime;
+     }
+ 
+     public void setStartTime(int startTime) {
+         this.startTime = startTime;
+     }
+ 
+     public int getCompletionTime() {
+         return completionTime;
+     }
+ 
+     public void setCompletionTime(int completionTime) {
+         this.completionTime = completionTime;
+     }
+ 
+     public int getArrivalTime() {
+         return arrivalTime;
+     }
+ 
+     // Other getters and setters
+     public String getName() {
+         return name;
+     }
+ 
+     public int getTid() {
+         return tid;
+     }
+ 
+     public int getPriority() {
+         return priority;
+     }
+ 
+     public int getBurst() {
+         return burst;
+     }
+ 
+     public void setBurst(int burst) {
+         this.burst = burst;
+     }
+ 
+     @Override
+     public boolean equals(Object other) {
+         if (other == this)
+             return true;
+ 
+         if (!(other instanceof Task_Orig))
+             return false;
+ 
+         Task_Orig rhs = (Task_Orig)other;
+         return this.tid == rhs.tid;
+     }
+ 
+     @Override
+     public String toString() {
+         return "\n" + "Name: " + name + ", Tid: " + tid + ", Priority: " + priority + ", Burst: " + burst;
+     }
+ }
+ 
