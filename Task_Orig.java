@@ -26,7 +26,7 @@
      // New fields for metrics calculation
      private int startTime = -1; // -1 indicates not started yet
      private int completionTime;
-     private int arrivalTime; // Assumed to be set when the task is created
+     private int arrivalTime; 
  
      private static AtomicInteger tidAllocator = new AtomicInteger();
  
